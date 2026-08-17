@@ -14,6 +14,7 @@ function AuthComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = Route.useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ function AuthComponent() {
       toast.error(error.message);
     } else {
       toast.success("Logged in successfully");
+      navigate({ to: "/dashboard" });
     }
     setLoading(false);
   };
@@ -47,7 +49,7 @@ function AuthComponent() {
           <CardDescription>Enter your credentials to access the dashboard</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleLogin}>
             <div className="space-y-2">
               <Input
                 type="email"
