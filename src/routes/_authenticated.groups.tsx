@@ -10,7 +10,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Plus, Users } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/dashboard")({ // Temporarily using dashboard file as base for logic
+export const Route = createFileRoute("/_authenticated/groups")({ // Temporarily using dashboard file as base for logic
   component: GroupsComponent,
 });
 
