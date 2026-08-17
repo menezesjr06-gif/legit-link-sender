@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Bot } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -42,11 +43,14 @@ function AuthComponent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>MJApp Link Bot</CardTitle>
-          <CardDescription>Enter your credentials to access the dashboard</CardDescription>
+    <div className="flex min-h-screen items-center justify-center p-4 bg-background">
+      <Card className="w-full max-w-md border-border">
+        <CardHeader className="text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+            <Bot className="h-8 w-8" />
+          </div>
+          <CardTitle className="text-2xl font-bold tracking-tight">MJApp Link Bot</CardTitle>
+          <CardDescription>Gerencie suas campanhas de WhatsApp com eficiência</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleLogin}>
