@@ -1,9 +1,9 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  beforeLoad: async () => {
+  beforeLoad: () => {
     throw redirect({
       to: "/auth",
-    });
+    } as any);
   },
 });
