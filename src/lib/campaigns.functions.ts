@@ -14,11 +14,11 @@ export const getGroups = createServerFn({ method: "GET" })
   });
 
 export const createGroup = createServerFn({ method: "POST" })
-  .input(z.object({
+  .validator((data: { name: string; whatsapp_group_id: string; category?: string }) => z.object({
     name: z.string().min(1),
     whatsapp_group_id: z.string().min(1),
     category: z.string().optional(),
-  }))
+  }).parse(data))
   .handler(async ({ data }) => {
     const { error } = await supabase
       .from("groups")
@@ -40,13 +40,13 @@ export const getCampaigns = createServerFn({ method: "GET" })
   });
 
 export const createCampaign = createServerFn({ method: "POST" })
-  .input(z.object({
+  .validator((data: { title: string; message: string; link?: string; group_ids: string[]; schedule_at?: string }) => z.object({
     title: z.string().min(1),
     message: z.string().min(1),
     link: z.string().url().optional().or(z.literal("")),
     group_ids: z.array(z.string().uuid()),
     schedule_at: z.string().optional(),
-  }))
+  }).parse(data))
   .handler(async ({ data }) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Unauthorized");
@@ -66,7 +66,7 @@ export const createCampaign = createServerFn({ method: "POST" })
     
     if (campaignError) throw campaignError;
 
-    const recipientData = data.group_ids.map(groupId => ({
+    const recipientData = data.group_ids.map((groupId: string) => ({
       campaign_id: campaign.id,
       group_id: groupId
     }));
