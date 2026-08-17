@@ -14,16 +14,224 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaign_history: {
+        Row: {
+          campaign_id: string | null
+          created_at: string | null
+          error_message: string | null
+          group_id: string | null
+          id: string
+          sent_at: string | null
+          status: Database["public"]["Enums"]["delivery_status"] | null
+        }
+        Insert: {
+          campaign_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          group_id?: string | null
+          id?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["delivery_status"] | null
+        }
+        Update: {
+          campaign_id?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          group_id?: string | null
+          id?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["delivery_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_history_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_history_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaign_recipients: {
+        Row: {
+          campaign_id: string
+          group_id: string
+        }
+        Insert: {
+          campaign_id: string
+          group_id: string
+        }
+        Update: {
+          campaign_id?: string
+          group_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_recipients_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_recipients_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_recurring: boolean | null
+          link: string | null
+          message: string
+          recurrence_interval: string | null
+          schedule_at: string | null
+          status: Database["public"]["Enums"]["campaign_status"] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          link?: string | null
+          message: string
+          recurrence_interval?: string | null
+          schedule_at?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          link?: string | null
+          message?: string
+          recurrence_interval?: string | null
+          schedule_at?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      groups: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          id: string
+          name: string
+          status: string | null
+          updated_at: string | null
+          whatsapp_group_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          name: string
+          status?: string | null
+          updated_at?: string | null
+          whatsapp_group_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+          status?: string | null
+          updated_at?: string | null
+          whatsapp_group_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      whatsapp_settings: {
+        Row: {
+          access_token: string
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          phone_number_id: string
+          updated_at: string | null
+          waba_id: string | null
+        }
+        Insert: {
+          access_token: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          phone_number_id: string
+          updated_at?: string | null
+          waba_id?: string | null
+        }
+        Update: {
+          access_token?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          phone_number_id?: string
+          updated_at?: string | null
+          waba_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      campaign_status:
+        | "draft"
+        | "scheduled"
+        | "sending"
+        | "completed"
+        | "paused"
+        | "cancelled"
+      delivery_status: "pending" | "sent" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +358,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      campaign_status: [
+        "draft",
+        "scheduled",
+        "sending",
+        "completed",
+        "paused",
+        "cancelled",
+      ],
+      delivery_status: ["pending", "sent", "failed"],
+    },
   },
 } as const
