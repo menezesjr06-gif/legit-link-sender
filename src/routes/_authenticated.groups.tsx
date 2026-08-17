@@ -90,7 +90,7 @@ function GroupsComponent() {
         </Dialog>
       </div>
 
-      <Card>
+      <Card className="border-primary/10 shadow-lg shadow-primary/5">
         <CardContent className="p-0">
           <Table>
             <TableHeader>

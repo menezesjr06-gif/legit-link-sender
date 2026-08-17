@@ -123,7 +123,7 @@ function SettingsPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="border-primary/10 shadow-lg shadow-primary/5">
           <CardHeader>
             <CardTitle>Credenciais do WhatsApp</CardTitle>
             <CardDescription>
@@ -184,7 +184,7 @@ function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-primary/10 shadow-lg shadow-primary/5">
           <CardHeader>
             <CardTitle>Teste de Conexão</CardTitle>
             <CardDescription>
