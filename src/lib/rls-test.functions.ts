@@ -16,25 +16,25 @@ export const validateRLSAccess = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }) => {
     try {
-      let query: any;
-      const typedTable = data.table as any;
+      const { table, operation } = data;
       
-      switch (data.operation) {
-        case 'select':
-          query = supabase.from(typedTable).select("*").limit(1);
-          break;
-        case 'insert':
-          query = supabase.from(typedTable).insert({}).select();
-          break;
-        case 'update':
-          query = supabase.from(typedTable).update({}).eq('id' as any, '00000000-0000-0000-0000-000000000000' as any);
-          break;
-        case 'delete':
-          query = supabase.from(typedTable).delete().eq('id' as any, '00000000-0000-0000-0000-000000000000' as any);
-          break;
+      // Use a dynamic approach to avoid complex type checking issues
+      const supabaseClient = supabase as any;
+      const queryBuilder = supabaseClient.from(table);
+      
+      let result;
+      
+      if (operation === 'select') {
+        result = await queryBuilder.select("*").limit(1);
+      } else if (operation === 'insert') {
+        result = await queryBuilder.insert({}).select();
+      } else if (operation === 'update') {
+        result = await queryBuilder.update({}).eq('id', '00000000-0000-0000-0000-000000000000');
+      } else if (operation === 'delete') {
+        result = await queryBuilder.delete().eq('id', '00000000-0000-0000-0000-000000000000');
+      } else {
+        throw new Error("Invalid operation");
       }
-
-      const result = await query;
       
       return {
         success: !result.error || result.error.code !== '42501',
