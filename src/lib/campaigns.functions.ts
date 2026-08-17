@@ -2,6 +2,10 @@ import { z } from "zod";
 import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 
+/**
+ * Campaign and Queue Management Functions
+ */
+
 export const getGroups = createServerFn({ method: "GET" })
   .handler(async () => {
     const { data, error } = await supabase
@@ -44,12 +48,22 @@ export const getCampaigns = createServerFn({ method: "GET" })
   });
 
 export const createCampaign = createServerFn({ method: "POST" })
-  .validator((data: { title: string; message: string; link?: string; group_ids: string[]; schedule_at?: string }) => z.object({
+  .validator((data: { 
+    title: string; 
+    message: string; 
+    link?: string; 
+    group_ids: string[]; 
+    schedule_at?: string;
+    is_recurring?: boolean;
+    recurrence_interval?: string;
+  }) => z.object({
     title: z.string().min(1),
     message: z.string().min(1),
     link: z.string().url().optional().or(z.literal("")),
     group_ids: z.array(z.string().uuid()),
     schedule_at: z.string().optional(),
+    is_recurring: z.boolean().optional(),
+    recurrence_interval: z.string().optional(),
   }).parse(data))
   .handler(async ({ data }) => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -62,6 +76,8 @@ export const createCampaign = createServerFn({ method: "POST" })
         message: data.message,
         link: data.link || null,
         schedule_at: data.schedule_at || null,
+        is_recurring: data.is_recurring || false,
+        recurrence_interval: data.recurrence_interval || null,
         status: data.schedule_at ? 'scheduled' as const : 'draft' as const,
         created_by: user.id
       }])
@@ -82,4 +98,25 @@ export const createCampaign = createServerFn({ method: "POST" })
     if (recipientError) throw recipientError;
 
     return { success: true, campaignId: campaign.id };
+  });
+
+/**
+ * Queue Controls
+ */
+
+export const updateCampaignStatus = createServerFn({ method: "POST" })
+  .validator((data: { id: string; status: 'paused' | 'sending' | 'scheduled' | 'cancelled' }) => 
+    z.object({
+      id: z.string().uuid(),
+      status: z.enum(['paused', 'sending', 'scheduled', 'cancelled'])
+    }).parse(data)
+  )
+  .handler(async ({ data }) => {
+    const { error } = await supabase
+      .from("campaigns")
+      .update({ status: data.status })
+      .eq("id", data.id);
+    
+    if (error) throw error;
+    return { success: true };
   });
