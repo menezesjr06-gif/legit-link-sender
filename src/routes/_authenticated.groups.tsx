@@ -8,10 +8,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Plus, Users } from "lucide-react";
+import { Plus } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 
-export const Route = createFileRoute("/_authenticated/groups")({ // Temporarily using dashboard file as base for logic
+export const Route = createFileRoute("/_authenticated/groups")({
   component: GroupsComponent,
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData({
+      queryKey: ["groups"],
+      queryFn: () => getGroups(),
+    });
+  },
 });
 
 function GroupsComponent() {
@@ -26,8 +33,10 @@ function GroupsComponent() {
     queryFn: () => getGroups(),
   });
 
+  const createGroupFn = useServerFn(createGroup);
+
   const mutation = useMutation({
-    mutationFn: createGroup,
+    mutationFn: (vars: { name: string; whatsapp_group_id: string; category?: string }) => createGroupFn({ data: vars }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groups"] });
       setOpen(false);
