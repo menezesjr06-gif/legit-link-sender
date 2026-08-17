@@ -62,11 +62,30 @@ export const saveWhatsAppSettings = createServerFn({ method: "POST" })
 export const testWhatsAppConnection = createServerFn({ method: "POST" })
   .inputValidator((data) => z.object({ phoneNumber: z.string() }).parse(data))
   .handler(async ({ data }) => {
-    // In a real scenario, this would call the Meta API
-    console.log("Testing WhatsApp connection for:", data.phoneNumber);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    return { success: true, message: "Conexão testada com sucesso!" };
+    const { data: settings, error } = await supabase
+      .from("whatsapp_settings")
+      .select("*")
+      .maybeSingle();
+
+    if (error || !settings) {
+      throw new Error("Configurações do WhatsApp não encontradas. Por favor, configure e salve primeiro.");
+    }
+
+    const { sendWhatsAppMessage } = await import("./whatsapp.server");
+
+    try {
+      await sendWhatsAppMessage(
+        {
+          access_token: settings.access_token,
+          phone_number_id: settings.phone_number_id,
+          waba_id: settings.waba_id,
+        },
+        data.phoneNumber,
+        "Olá! Este é um teste de conexão do MJApp Link Bot. Se você recebeu esta mensagem, sua integração com a Meta está funcionando corretamente! 🚀"
+      );
+
+      return { success: true, message: "Mensagem de teste enviada com sucesso!" };
+    } catch (err: any) {
+      throw new Error(`Falha na API do WhatsApp: ${err.message}`);
+    }
   });
