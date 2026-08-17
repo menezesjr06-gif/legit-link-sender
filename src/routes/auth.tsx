@@ -75,11 +75,11 @@ function AuthComponent() {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
-          <Button className="w-full" onClick={handleLogin} disabled={loading}>
-            {loading ? "Loading..." : "Login"}
+          <Button className="w-full font-bold uppercase tracking-wide" onClick={handleLogin} disabled={loading}>
+            {loading ? "Carregando..." : "Login"}
           </Button>
-          <Button variant="outline" className="w-full" onClick={handleSignUp} disabled={loading}>
-            Sign Up
+          <Button variant="outline" className="w-full font-bold border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all" onClick={handleSignUp} disabled={loading}>
+            Criar Conta
           </Button>
         </CardFooter>
       </Card>
