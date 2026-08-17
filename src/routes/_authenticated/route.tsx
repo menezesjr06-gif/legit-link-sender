@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupLabel, SidebarGroupContent } from "@/components/ui/sidebar";
-import { LayoutDashboard, Send, Users, History, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Send, Users, History, Settings, LogOut, Bot } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated")({
@@ -41,7 +41,15 @@ function AuthenticatedLayout() {
       <div className="flex min-h-screen w-full bg-muted/40">
         <Sidebar>
           <SidebarHeader className="p-4">
-            <h2 className="text-xl font-bold text-primary">MJApp Bot</h2>
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <Bot className="h-6 w-6" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold leading-none text-sidebar-foreground">MJApp Link</span>
+                <span className="text-xs font-medium text-primary uppercase tracking-wider mt-1">Bot Manager</span>
+              </div>
+            </div>
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
