@@ -33,7 +33,7 @@ function AuthenticatedLayout() {
     { title: "Campanhas", icon: Send, to: "/campaigns" },
     { title: "Grupos", icon: Users, to: "/groups" },
     { title: "Histórico", icon: History, to: "/dashboard" }, // Placeholder for now
-    { title: "Configurações", icon: Settings, to: "/dashboard" }, // Placeholder for now
+    { title: "Configurações", icon: Settings, to: "/settings" },
   ];
 
   return (
