@@ -22,7 +22,11 @@ export const createGroup = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { error } = await supabase
       .from("groups")
-      .insert([data]);
+      .insert([{
+        name: data.name,
+        whatsapp_group_id: data.whatsapp_group_id,
+        category: data.category || null
+      }]);
     
     if (error) throw error;
     return { success: true };
@@ -58,7 +62,7 @@ export const createCampaign = createServerFn({ method: "POST" })
         message: data.message,
         link: data.link || null,
         schedule_at: data.schedule_at || null,
-        status: data.schedule_at ? 'scheduled' : 'draft',
+        status: data.schedule_at ? 'scheduled' as const : 'draft' as const,
         created_by: user.id
       }])
       .select()
