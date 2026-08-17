@@ -232,11 +232,11 @@ function CampaignsComponent() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Campanha</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Agendamento</TableHead>
-                <TableHead>Recorrência</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
+                <TableHead className="font-bold text-foreground">Campanha</TableHead>
+                <TableHead className="font-bold text-foreground">Status</TableHead>
+                <TableHead className="font-bold text-foreground">Agendamento</TableHead>
+                <TableHead className="font-bold text-foreground">Recorrência</TableHead>
+                <TableHead className="text-right font-bold text-foreground">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
