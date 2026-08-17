@@ -109,7 +109,7 @@ function CampaignsComponent() {
     });
   };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status: string | null) => {
     switch (status) {
       case 'completed': return <Badge variant="outline" className="bg-green-100 text-green-800">Concluída</Badge>;
       case 'sending': return <Badge variant="outline" className="bg-blue-100 text-blue-800 animate-pulse">Enviando</Badge>;
