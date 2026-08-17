@@ -15,26 +15,22 @@ export const validateRLSAccess = createServerFn({ method: "POST" })
     }).parse(data)
   )
   .handler(async ({ data }) => {
-    // Attempt to perform the operation as the authenticated user
-    // The RLS policies should either allow this or return an error/empty set
-    
     try {
-      let query;
+      let query: any;
+      const typedTable = data.table as any;
       
       switch (data.operation) {
         case 'select':
-          query = supabase.from(data.table).select("*").limit(1);
+          query = supabase.from(typedTable).select("*").limit(1);
           break;
         case 'insert':
-          // Attempting an empty or dummy insert to check permission
-          // Note: This might fail due to schema constraints before RLS
-          query = supabase.from(data.table).insert({}).select();
+          query = supabase.from(typedTable).insert({}).select();
           break;
         case 'update':
-          query = supabase.from(data.table).update({}).eq('id', '00000000-0000-0000-0000-000000000000');
+          query = supabase.from(typedTable).update({}).eq('id' as any, '00000000-0000-0000-0000-000000000000' as any);
           break;
         case 'delete':
-          query = supabase.from(data.table).delete().eq('id', '00000000-0000-0000-0000-000000000000');
+          query = supabase.from(typedTable).delete().eq('id' as any, '00000000-0000-0000-0000-000000000000' as any);
           break;
       }
 
