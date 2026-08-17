@@ -39,7 +39,7 @@ function AuthenticatedLayout() {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-muted/40">
+      <div className="flex min-h-screen w-full bg-background">
         <Sidebar>
           <SidebarHeader className="p-4">
             <div className="flex items-center gap-3">

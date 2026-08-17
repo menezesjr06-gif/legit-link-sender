@@ -223,7 +223,7 @@ function CampaignsComponent() {
         </Dialog>
       </div>
 
-      <Card>
+      <Card className="border-primary/10 shadow-lg shadow-primary/5">
         <CardHeader>
           <CardTitle>Fila de Envios</CardTitle>
           <CardDescription>Controle as campanhas agendadas e em execução.</CardDescription>
