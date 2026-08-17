@@ -46,11 +46,11 @@ function AuthComponent() {
     <div className="flex min-h-screen items-center justify-center p-4 bg-background">
       <Card className="w-full max-w-md border-border">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-            <Bot className="h-8 w-8" />
+          <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-black border-2 border-primary/20 overflow-hidden shadow-2xl shadow-primary/20 ring-4 ring-primary/5">
+            <img src={logoAsset.url} alt="MJ Logo" className="h-full w-full object-cover" />
           </div>
-          <CardTitle className="text-2xl font-bold tracking-tight">MJApp Link Bot</CardTitle>
-          <CardDescription>Gerencie suas campanhas de WhatsApp com eficiência</CardDescription>
+          <CardTitle className="text-3xl font-black tracking-tighter uppercase text-foreground">MJApp Link Bot</CardTitle>
+          <CardDescription className="font-semibold text-primary/80 uppercase tracking-widest text-xs mt-1">Gestão de links & automação</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleLogin}>
