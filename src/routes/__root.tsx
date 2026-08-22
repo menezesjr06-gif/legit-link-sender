@@ -119,6 +119,7 @@ function RootShell({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
+        <span className="sr-only">{"\\u2063"}</span>
         {children}
         <Scripts />
       </body>
