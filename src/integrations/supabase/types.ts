@@ -133,7 +133,7 @@ export type Database = {
       }
       groups: {
         Row: {
-          category: string | null
+          category: Database["public"]["Enums"]["group_category"]
           created_at: string | null
           created_by: string | null
           id: string
@@ -143,7 +143,7 @@ export type Database = {
           whatsapp_group_id: string
         }
         Insert: {
-          category?: string | null
+          category?: Database["public"]["Enums"]["group_category"]
           created_at?: string | null
           created_by?: string | null
           id?: string
@@ -153,7 +153,7 @@ export type Database = {
           whatsapp_group_id: string
         }
         Update: {
-          category?: string | null
+          category?: Database["public"]["Enums"]["group_category"]
           created_at?: string | null
           created_by?: string | null
           id?: string
@@ -235,6 +235,7 @@ export type Database = {
         | "paused"
         | "cancelled"
       delivery_status: "pending" | "sent" | "failed"
+      group_category: "informatica" | "acessorios"
     }
     CompositeTypes: {
       [_ in never]: never

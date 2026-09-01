@@ -8,7 +8,7 @@ CREATE TABLE public.groups (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     whatsapp_group_id TEXT NOT NULL UNIQUE,
-    category TEXT DEFAULT 'General',
+    category TEXT DEFAULT 'informatica' CHECK (category IN ('informatica', 'acessorios')),
     status TEXT DEFAULT 'active' CHECK (status IN ('active', 'paused')),
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()
