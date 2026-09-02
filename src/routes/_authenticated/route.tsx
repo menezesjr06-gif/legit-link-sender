@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroup, SidebarGroupLabel, SidebarGroupContent } from "@/components/ui/sidebar";
 import logoAsset from "@/assets/logo-mj.jpeg.asset.json";
-import { LayoutDashboard, Send, Users, History, Settings, LogOut, Bot, Moon, Sun } from "lucide-react";
+import { LayoutDashboard, Send, Users, History, Settings, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Link } from "@tanstack/react-router";
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logoAsset from "@/assets/logo-mj.jpeg.asset.json";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
@@ -43,7 +44,10 @@ function AuthComponent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-background">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-background relative">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-md border-border">
         <CardHeader className="text-center">
           <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-2xl bg-black border-2 border-primary/20 overflow-hidden shadow-2xl shadow-primary/20 ring-4 ring-primary/5">
