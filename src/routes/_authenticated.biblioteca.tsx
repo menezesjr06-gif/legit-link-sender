@@ -51,11 +51,11 @@ function Biblioteca() {
           </div>
           <span className="hidden items-center gap-1 rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-300 lg:inline-flex"><Lock className="h-3.5 w-3.5" /> Biblioteca privada</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Link to="/assistente"><Button className="rounded-full font-black"><Wand2 className="mr-2 h-4 w-4" /> Nova matriz</Button></Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link to="/assistente" className="flex-1 sm:flex-none"><Button className="w-full rounded-full font-black"><Wand2 className="mr-2 h-4 w-4" /> Nova matriz</Button></Link>
           <div className="flex rounded-full border p-1 bg-muted">
-            <button onClick={() => setView("grid")} className={`rounded-full p-2 ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}><Grid3X3 className="h-4 w-4" /></button>
-            <button onClick={() => setView("list")} className={`rounded-full p-2 ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}><List className="h-4 w-4" /></button>
+            <button type="button" aria-label="Visualização em grade" aria-pressed={view === "grid"} onClick={() => setView("grid")} className={`rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${view === "grid" ? "bg-foreground text-background" : "text-muted-foreground"}`}><Grid3X3 className="h-4 w-4" /></button>
+            <button type="button" aria-label="Visualização em lista" aria-pressed={view === "list"} onClick={() => setView("list")} className={`rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${view === "list" ? "bg-foreground text-background" : "text-muted-foreground"}`}><List className="h-4 w-4" /></button>
           </div>
         </div>
       </div>
@@ -89,12 +89,12 @@ function Biblioteca() {
               <CardContent className="p-4">
                 <h3 className="font-black leading-tight line-clamp-1">{p.titulo}</h3>
                 <p className="text-xs text-muted-foreground">{p.cliente} • {p.maquina} • {p.atualizado}</p>
-                <div className="mt-3 flex items-center gap-1.5">
+                <div className="mt-3 flex min-w-0 flex-wrap items-center gap-1.5">
                   {p.cores.slice(0,5).map(c => <span key={c} className="h-6 w-6 rounded-full border-2 border-white shadow" style={{ background: c }} />)}
                   <span className="ml-1 text-xs text-muted-foreground">{p.cores.length} cores</span>
                   <span className="ml-auto flex gap-1">
-                    <Button size="icon" variant="outline" className="h-8 w-8 rounded-full" onClick={() => handleView(p)}><Eye className="h-4 w-4" /></Button>
-                    <Button size="icon" className="h-8 w-8 rounded-full" onClick={() => handleDownload(p)}><Download className="h-4 w-4" /></Button>
+                    <Button size="icon" variant="outline" aria-label={`Ver detalhes de ${p.titulo}`} className="rounded-full" onClick={() => handleView(p)}><Eye className="h-4 w-4" /></Button>
+                    <Button size="icon" aria-label={`Baixar ${p.titulo}`} className="rounded-full" onClick={() => handleDownload(p)}><Download className="h-4 w-4" /></Button>
                   </span>
                 </div>
               </CardContent>
@@ -105,7 +105,7 @@ function Biblioteca() {
         <Card className="rounded-[22px] overflow-hidden">
           <div className="divide-y">
             {filtrados.map(p => (
-              <div key={p.id} className="flex items-center gap-4 p-4 hover:bg-muted/40">
+              <div key={p.id} className="flex min-w-0 flex-wrap items-center gap-3 p-3 hover:bg-muted/40 sm:flex-nowrap sm:gap-4 sm:p-4">
                 <img src={p.arte} alt="" className="h-14 w-14 rounded-xl object-cover border" />
                 <div className="min-w-0 flex-1">
                   <p className="font-bold leading-none truncate">{p.titulo}</p>

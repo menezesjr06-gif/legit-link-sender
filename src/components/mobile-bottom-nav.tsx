@@ -12,15 +12,15 @@ const items = [
 export function MobileBottomNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 lg:hidden">
-      <div className="mx-auto flex max-w-[560px] items-center justify-around px-2 py-1.5 safe-area-pb">
+    <nav aria-label="Navegação principal" className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 xl:hidden">
+      <div className="mx-auto flex max-w-[640px] items-stretch justify-around px-1 pt-1.5 safe-area-pb sm:px-2">
         {items.map(item => {
           const active = pathname === item.to || pathname.startsWith(item.to + "/")
           return (
-            <Link key={item.to} to={item.to}
-              className={`flex flex-col items-center gap-1 rounded-2xl px-4 py-2 text-[11px] font-bold transition-all ${active ? "bg-foreground text-background shadow-lg" : "text-muted-foreground"}`}>
-              <item.icon className={`h-5 w-5 ${active ? "" : "opacity-70"}`} />
-              <span className="leading-none tracking-wide">{item.label}</span>
+            <Link key={item.to} to={item.to} aria-current={active ? "page" : undefined}
+              className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-[10px] font-bold transition-all sm:px-3 sm:text-[11px] ${active ? "bg-foreground text-background shadow-lg" : "text-muted-foreground"}`}>
+              <item.icon className={`h-5 w-5 shrink-0 ${active ? "" : "opacity-70"}`} />
+              <span className="max-w-full truncate leading-none tracking-wide">{item.label}</span>
             </Link>
           )
         })}

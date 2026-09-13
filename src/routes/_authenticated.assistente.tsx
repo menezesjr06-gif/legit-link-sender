@@ -126,7 +126,7 @@ function Assistente() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-[24px] border bg-card p-4 shadow-sm">
+      <div className="rounded-[24px] border bg-card p-3 shadow-sm sm:p-4">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <div className="hidden h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground lg:flex"><Wand2 className="h-5 w-5" /></div>
@@ -138,12 +138,12 @@ function Assistente() {
           <span className="rounded-full bg-foreground px-3 py-1.5 text-xs font-black text-background">{Math.round(step / 7 * 100)}% concluído</span>
         </div>
         <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-primary transition-all duration-500" style={{ width: `${step / 7 * 100}%` }} /></div>
-        <div className="mt-4 grid grid-cols-7 gap-1.5">
+        <div className="mt-4 grid grid-cols-4 gap-1.5 sm:grid-cols-7">
           {steps.map(s => {
             const done = step > s.n;
             const active = step === s.n;
             return (
-              <button key={s.n} onClick={() => setStep(s.n)} className={`rounded-2xl border p-2 text-center transition lg:p-3 ${active ? "bg-foreground text-background border-foreground shadow" : done ? "bg-emerald-500 text-white border-emerald-500" : "bg-card hover:bg-muted"}`}>
+              <button key={s.n} type="button" aria-current={active ? "step" : undefined} aria-label={`Etapa ${s.n}: ${s.title}`} onClick={() => setStep(s.n)} className={`min-w-0 rounded-2xl border p-2 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:p-3 ${active ? "bg-foreground text-background border-foreground shadow" : done ? "bg-emerald-500 text-white border-emerald-500" : "bg-card hover:bg-muted"}`}>
                 <s.icon className={`mx-auto h-5 w-5 ${active || done ? "" : "text-muted-foreground"}`} />
                 <p className="mt-1 hidden text-[11px] font-bold leading-none lg:block">{s.title}</p>
                 <p className="hidden text-[10px] opacity-60 lg:block">{s.desc}</p>
@@ -156,7 +156,7 @@ function Assistente() {
 
       <div className="grid gap-6 lg:grid-cols-[1.35fr_0.75fr]">
         <Card className="rounded-[24px] border shadow-sm overflow-hidden">
-          <CardContent className="p-6 lg:p-8">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
             {step === 1 && (
               <div className="space-y-5">
                 <Header k="01" title="Envie sua arte base" desc="PNG, JPG, SVG ou PDF em alta. Sua arte fica isolada na sua conta — privada por RLS." />
@@ -166,7 +166,7 @@ function Assistente() {
                   <p className="text-xs text-muted-foreground">PNG/JPG/SVG • até 8MB • fundo transparente ideal</p>
                   <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
                   <Button variant="outline" className="mt-4 rounded-full" onClick={() => fileRef.current?.click()}>Selecionar arquivo</Button>
-                  <div className="mx-auto mt-4 grid max-w-[420px] grid-cols-3 gap-2">
+                  <div className="mx-auto mt-4 grid max-w-[420px] gap-2 sm:grid-cols-3">
                     <img src={artePreview} alt="arte" className="h-24 w-full rounded-xl object-cover border" />
                     <div className="rounded-xl border bg-background p-3 text-left"><p className="text-xs font-bold truncate">{arteFileName}</p><p className="text-[11px] text-muted-foreground">prévia real</p><span className="mt-2 inline-flex rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-black text-white">PRIVADO</span></div>
                     <div className="rounded-xl bg-primary p-3 text-left text-primary-foreground"><p className="text-xs font-black">Auto-limpeza</p><p className="text-[11px] opacity-80">Remoção de fundo sugerida</p></div>
@@ -189,7 +189,7 @@ function Assistente() {
                 </div>
                 <div className="grid gap-3">
                   {catalog.hoops.map(h => (
-                    <label key={h.id} className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${form.bastidor === h.id ? "border-foreground bg-foreground text-background" : "hover:bg-muted/50"} ${!h.ativo ? "opacity-50" : ""}`}>
+                    <label key={h.id} className={`flex cursor-pointer flex-wrap items-center gap-3 rounded-2xl border p-3 transition sm:gap-4 sm:p-4 ${form.bastidor === h.id ? "border-foreground bg-foreground text-background" : "hover:bg-muted/50"} ${!h.ativo ? "opacity-50" : ""}`}>
                       <input type="radio" name="hoop" checked={form.bastidor === h.id} onChange={() => setForm({ ...form, bastidor: h.id })} className="accent-black" disabled={!h.ativo} />
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl border bg-background text-foreground text-xs font-black">{h.mm}</div>
                       <div className="flex-1"><p className="font-bold leading-none">{h.nome}</p><p className="text-xs opacity-70">{h.tamanho} • {h.uso}</p></div>
@@ -224,7 +224,7 @@ function Assistente() {
                 <Header k="04" title="Selecione a máquina" desc="Formato e agulhas ajustados automaticamente. Edite no Painel Admin sem código." />
                 <div className="grid gap-3">
                   {catalog.machines.filter(m => m.ativo).map(m => (
-                    <label key={m.id} className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 ${form.maquina === m.id ? "border-primary bg-primary/5" : "hover:bg-muted/40"}`}>
+                    <label key={m.id} className={`flex cursor-pointer flex-wrap items-center gap-3 rounded-2xl border p-3 sm:gap-4 sm:p-4 ${form.maquina === m.id ? "border-primary bg-primary/5" : "hover:bg-muted/40"}`}>
                       <input type="radio" name="machine" checked={form.maquina === m.id} onChange={() => setForm({ ...form, maquina: m.id })} />
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-foreground text-background font-black text-xs">{m.marca[0]}</div>
                       <div className="flex-1"><p className="font-bold">{m.nome}</p><p className="text-xs text-muted-foreground">{m.agulhas} agulhas • {m.velocidade} • {m.formato}</p></div>
@@ -271,7 +271,7 @@ function Assistente() {
                   </div>
                   <div className="mt-4 grid gap-3">
                     {form.cores.map((c, i) => (
-                      <div key={i} className="flex items-center gap-3 rounded-xl border p-3"><span className="h-8 w-8 rounded-full border-2 border-white shadow" style={{ background: c }} /><span className="flex-1 font-semibold text-sm">{i + 1} — {c} • parada {i + 1}</span><input type="color" value={c} onChange={e => setForm({ ...form, cores: form.cores.map((cc, idx) => idx === i ? e.target.value : cc) })} className="h-8 w-8 rounded" /></div>
+                      <div key={i} className="flex min-w-0 flex-wrap items-center gap-3 rounded-xl border p-3"><span className="h-8 w-8 shrink-0 rounded-full border-2 border-white shadow" style={{ background: c }} /><span className="min-w-[130px] flex-1 text-sm font-semibold">{i + 1} — {c} • parada {i + 1}</span><input aria-label={`Alterar cor ${i + 1}`} type="color" value={c} onChange={e => setForm({ ...form, cores: form.cores.map((cc, idx) => idx === i ? e.target.value : cc) })} className="h-11 w-11 shrink-0 rounded" /></div>
                     ))}
                   </div>
                 </div>
@@ -308,7 +308,7 @@ function Assistente() {
               </div>
             )}
 
-            <div className="mt-8 flex items-center justify-between gap-3 border-t pt-6">
+            <div className="mt-8 flex flex-col-reverse gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between [&_button]:w-full sm:[&_button]:w-auto">
               <Button variant="outline" onClick={prev} disabled={step === 1 || saving} className="rounded-full"><ArrowLeft className="mr-2 h-4 w-4" /> Voltar</Button>
               <Button onClick={next} disabled={saving} className="rounded-full px-6 font-black">
                 {saving ? "Salvando..." : step === 7 ? <><Download className="mr-2 h-4 w-4" /> Gerar matriz privada</> : <>Continuar <ArrowRight className="ml-2 h-4 w-4" /></>}
@@ -356,7 +356,7 @@ function Header({ k, title, desc }: { k: string, title: string, desc: string }) 
   return <div className="flex gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-primary-foreground">{k}</span><div><h2 className="text-lg font-black tracking-tight">{title}</h2><p className="text-sm text-muted-foreground">{desc}</p></div></div>
 }
 function Row({ label, value }: { label: string, value: string }) {
-  return <div className="flex justify-between gap-3 border-b pb-2 last:border-0"><span className="text-muted-foreground text-xs font-bold uppercase tracking-wide">{label}</span><span className="text-right font-semibold text-xs max-w-[60%]">{value}</span></div>
+  return <div className="flex min-w-0 justify-between gap-3 border-b pb-2 last:border-0"><span className="shrink-0 text-xs font-bold uppercase tracking-wide text-muted-foreground">{label}</span><span className="max-w-[60%] break-words text-right text-xs font-semibold">{value}</span></div>
 }
 function Info({ label, value }: { label: string, value: string }) {
   return <div><p className="text-[11px] font-black tracking-widest text-muted-foreground">{label}</p><p className="font-bold">{value}</p></div>

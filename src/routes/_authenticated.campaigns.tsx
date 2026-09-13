@@ -122,7 +122,7 @@ function CampaignsComponent() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Campanhas</h1>
           <p className="text-muted-foreground">Gerencie o envio de links e mensagens automáticas</p>
@@ -162,7 +162,7 @@ function CampaignsComponent() {
 
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Grupos Destinatários</label>
-                <div className="grid grid-cols-2 gap-2 border rounded-md p-3 max-h-[150px] overflow-y-auto">
+                <div className="grid max-h-[150px] gap-2 overflow-y-auto rounded-md border p-3 sm:grid-cols-2">
                   {groups?.map(group => (
                     <div key={group.id} className="flex items-center space-x-2">
                       <Checkbox 
@@ -179,7 +179,7 @@ function CampaignsComponent() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div className="grid gap-2">
                   <label className="text-sm font-medium">Agendar para</label>
                   <Input 
@@ -229,7 +229,7 @@ function CampaignsComponent() {
           <CardDescription>Controle as campanhas agendadas e em execução.</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <Table>
+          <Table className="min-w-[760px]">
             <TableHeader>
               <TableRow>
                 <TableHead className="font-bold text-foreground">Campanha</TableHead>

@@ -126,12 +126,12 @@ export function TopBar() {
   }
   const title = titles[pathname] ?? "MJ Stúdio"
   return (
-    <div className="sticky top-0 z-10 flex h-[64px] items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-xl lg:px-8">
+    <div className="sticky top-0 z-10 flex min-h-[64px] min-w-0 items-center gap-4 border-b bg-background/80 px-3 py-2 backdrop-blur-xl sm:px-4 lg:px-8">
       <div className="min-w-0">
         <h1 className="text-lg font-black tracking-tight lg:text-xl">{title}</h1>
         <p className="hidden text-xs text-muted-foreground lg:block">Matrizes privadas por conta • Supabase RLS • sem exposição entre clientes</p>
       </div>
-      <div className="ml-auto hidden items-center gap-2 lg:flex">
+      <div className="ml-auto hidden items-center gap-2 xl:flex">
         <span className="rounded-full border bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-400">● Sessão privada</span>
         <span className="rounded-full bg-foreground px-3 py-1 text-xs font-bold text-background">Bordado Pro</span>
       </div>

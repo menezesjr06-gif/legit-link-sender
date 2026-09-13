@@ -44,10 +44,10 @@ function AuthComponent() {
         <ThemeToggle />
       </header>
 
-      <div className="mx-auto grid max-w-[1180px] gap-6 p-4 lg:grid-cols-[1.05fr_0.95fr] lg:p-8 lg:pt-10">
+      <div className="mx-auto grid w-full min-w-0 max-w-[1180px] gap-6 p-3 sm:p-4 lg:grid-cols-[1.05fr_0.95fr] lg:p-8 lg:pt-10">
         {/* Left - pitch */}
         <div className="order-2 lg:order-1">
-          <div className="rounded-[28px] bg-foreground p-6 text-background lg:p-8">
+          <div className="rounded-[24px] bg-foreground p-4 text-background sm:p-6 lg:rounded-[28px] lg:p-8">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold tracking-widest"><Sparkles className="h-4 w-4 text-primary" /> BORDADO PROFISSIONAL</div>
             <h1 className="mt-4 text-[30px] font-black leading-[0.95] tracking-tighter lg:text-[42px]">Suas matrizes.<br /><span className="text-primary">100% privadas.</span><br />Seu atelier digital.</h1>
             <p className="mt-4 max-w-[520px] text-sm leading-relaxed text-white/70">Cada cliente vê apenas suas artes e matrizes. Nada é compartilhado. Login autenticado + RLS no Supabase garante isolamento total entre contas.</p>
@@ -75,7 +75,7 @@ function AuthComponent() {
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
             <Stat value="4 formatos" label="DST PES JEF EXP" />
             <Stat value="7 etapas" label="Assistente guiado" />
             <Stat value="RLS ativo" label="Privacidade total" />
@@ -84,7 +84,7 @@ function AuthComponent() {
 
         {/* Right - form */}
         <div className="order-1 lg:order-2">
-          <div className="rounded-[28px] border bg-card p-6 shadow-xl shadow-black/5 lg:p-8">
+          <div className="rounded-[24px] border bg-card p-4 shadow-xl shadow-black/5 sm:p-6 lg:rounded-[28px] lg:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-black tracking-tight">{mode === "login" ? "Entrar no atelier" : "Criar conta privada"}</h2>
@@ -94,8 +94,8 @@ function AuthComponent() {
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-2 rounded-full bg-muted p-1">
-              <button onClick={() => setMode("login")} className={`rounded-full py-2.5 text-sm font-bold transition ${mode === "login" ? "bg-foreground text-background shadow" : "text-muted-foreground"}`}>Entrar</button>
-              <button onClick={() => setMode("signup")} className={`rounded-full py-2.5 text-sm font-bold transition ${mode === "signup" ? "bg-foreground text-background shadow" : "text-muted-foreground"}`}>Cadastrar</button>
+              <button type="button" aria-pressed={mode === "login"} onClick={() => setMode("login")} className={`rounded-full py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${mode === "login" ? "bg-foreground text-background shadow" : "text-muted-foreground"}`}>Entrar</button>
+              <button type="button" aria-pressed={mode === "signup"} onClick={() => setMode("signup")} className={`rounded-full py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${mode === "signup" ? "bg-foreground text-background shadow" : "text-muted-foreground"}`}>Cadastrar</button>
             </div>
 
             <form onSubmit={mode === "login" ? handleLogin : handleSignUp} className="mt-6 space-y-4">

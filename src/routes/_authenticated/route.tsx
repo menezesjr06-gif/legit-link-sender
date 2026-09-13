@@ -22,16 +22,16 @@ export const Route = createFileRoute("/_authenticated")({
 function AuthenticatedLayout() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex min-h-screen w-full bg-background">
+    <div className="flex min-h-screen w-full min-w-0 overflow-x-clip bg-background">
       {/* Desktop sidebar */}
-      <aside className="hidden w-[300px] shrink-0 border-r bg-sidebar lg:block sticky top-0 h-screen overflow-hidden">
+      <aside className="sticky top-0 hidden h-screen w-[300px] shrink-0 overflow-hidden border-r bg-sidebar xl:block">
         <AppSidebar />
       </aside>
 
       {/* Mobile top bar */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex h-[56px] items-center gap-3 border-b bg-sidebar px-3 text-sidebar-foreground lg:hidden">
-          <Button variant="ghost" size="icon" onClick={() => setOpen(true)} className="text-white hover:bg-white/10 hover:text-white">
+        <div className="flex h-[56px] items-center gap-2 border-b bg-sidebar px-2 text-sidebar-foreground sm:gap-3 sm:px-3 xl:hidden">
+          <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Abrir navegação" className="shrink-0 text-white hover:bg-white/10 hover:text-white">
             <Menu className="h-6 w-6" />
           </Button>
           <div className="flex items-center gap-2">
@@ -44,8 +44,8 @@ function AuthenticatedLayout() {
 
         <TopBar />
 
-        <main className="flex-1 bg-muted/30 pb-[84px] lg:pb-0">
-          <div className="mx-auto max-w-[1280px] p-4 lg:p-8">
+        <main className="min-w-0 flex-1 bg-muted/30 pb-[calc(84px+env(safe-area-inset-bottom))] xl:pb-0">
+          <div className="mx-auto w-full min-w-0 max-w-[1280px] p-3 sm:p-4 md:p-6 lg:p-8">
             <Outlet />
           </div>
         </main>
@@ -54,7 +54,7 @@ function AuthenticatedLayout() {
       </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="left" className="w-[300px] bg-sidebar p-0 text-sidebar-foreground border-sidebar-border">
+        <SheetContent side="left" className="w-[min(300px,calc(100vw-1rem))] bg-sidebar p-0 text-sidebar-foreground border-sidebar-border">
           <SheetTitle className="sr-only">Navegação</SheetTitle>
           <AppSidebar onNavigate={() => setOpen(false)} />
         </SheetContent>

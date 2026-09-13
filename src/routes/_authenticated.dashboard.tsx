@@ -18,12 +18,12 @@ function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-[24px] bg-foreground p-6 text-background lg:p-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-6 rounded-[24px] bg-foreground p-4 text-background sm:p-6 lg:flex-row lg:items-center lg:justify-between lg:p-8">
         <div>
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-black tracking-widest"><Sparkles className="h-4 w-4 text-primary" /> MJ STÚDIO • BORDADO PRO</p>
           <h1 className="mt-3 text-[28px] font-black leading-none tracking-tighter lg:text-[36px]">Bem-vindo ao seu<br /><span className="text-primary">atelier privado</span></h1>
           <p className="mt-2 max-w-[560px] text-sm text-white/70">Crie matrizes em 7 etapas, guarde artes e matrizes com isolamento total por conta (RLS). Atualize máquinas, bastidores e tecidos sem código no painel admin.</p>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap [&_a]:w-full sm:[&_a]:w-auto [&_button]:w-full sm:[&_button]:w-auto">
             <Link to="/assistente"><Button className="rounded-full font-black"><Wand2 className="mr-2 h-4 w-4" /> Criar nova matriz</Button></Link>
             <Link to="/biblioteca"><Button variant="outline" className="rounded-full bg-white text-black hover:bg-white/90 font-bold">Ver biblioteca <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
           </div>
@@ -56,7 +56,7 @@ function Dashboard() {
           <CardHeader className="flex flex-row items-center justify-between"><CardTitle className="text-base font-black">Projetos recentes</CardTitle><Link to="/biblioteca" className="text-xs font-bold text-primary">Ver todos</Link></CardHeader>
           <CardContent className="space-y-3">
             {projetos.slice(0, 4).map(p => (
-              <div key={p.id} className="flex items-center gap-3 rounded-2xl border p-3 hover:bg-muted/40">
+              <div key={p.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 hover:bg-muted/40 sm:flex-nowrap">
                 <img src={p.arte} alt="" className="h-14 w-14 rounded-xl object-cover border" />
                 <div className="min-w-0 flex-1"><p className="font-bold truncate text-sm">{p.titulo}</p><p className="text-xs text-muted-foreground truncate">{p.cliente} • {p.bastidor} • {p.tecido}</p></div>
                 <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-xs font-bold text-background"><Lock className="h-3 w-3" /> Privado</span>

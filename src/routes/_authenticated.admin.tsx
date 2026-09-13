@@ -66,7 +66,7 @@ function Admin() {
               <p className="text-sm text-white/70">Máquinas, bastidores, tecidos e presets refletem ao vivo no assistente. Persistido em localStorage + Supabase quando migrado.</p>
             </div>
           </div>
-          <Button onClick={save} className="rounded-full bg-white text-black hover:bg-white/90 font-black"><Save className="mr-2 h-4 w-4" /> Salvar alterações</Button>
+          <Button onClick={save} className="w-full rounded-full bg-white font-black text-black hover:bg-white/90 sm:w-auto"><Save className="mr-2 h-4 w-4" /> Salvar alterações</Button>
         </CardContent>
       </Card>
 
@@ -101,7 +101,7 @@ function Admin() {
                   { nome: "Aurora Noivas", email: "contato@aurora.com", role: "user" },
                   { nome: "Wolves FC", email: "compras@wolves.com", role: "user" },
                 ].map(u => (
-                  <div key={u.email} className="flex items-center gap-4 rounded-2xl border p-4">
+                  <div key={u.email} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap sm:gap-4 sm:p-4">
                     <div className="h-10 w-10 rounded-full bg-foreground text-background flex items-center justify-center font-black">{u.nome[0]}</div>
                     <div className="flex-1 min-w-0"><p className="font-bold truncate">{u.nome}</p><p className="text-xs text-muted-foreground truncate">{u.email}</p></div>
                     <Badge className={u.role === "admin" ? "bg-primary" : "bg-muted text-foreground"}>{u.role}</Badge>
@@ -123,7 +123,7 @@ function Admin() {
             <CardHeader className="flex flex-row items-center justify-between"><CardTitle className="text-base font-black">Máquinas de bordado</CardTitle><Badge variant="outline" className="rounded-full">{store.machines.length} itens</Badge></CardHeader>
             <CardContent className="space-y-3">
               {store.machines.map(m => (
-                <div key={m.id} className="flex items-center gap-3 rounded-2xl border p-3">
+                <div key={m.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap">
                   <div className="flex-1"><p className="font-bold">{m.nome} <span className="text-xs text-muted-foreground">• {m.marca}</span></p><p className="text-xs text-muted-foreground">{m.agulhas} agulhas • {m.velocidade} • {m.formato}</p></div>
                   <div className="flex items-center gap-2">
                     <Switch checked={m.ativo} onCheckedChange={() => adminHelpers.toggleMachine(m.id)} />
@@ -151,7 +151,7 @@ function Admin() {
             <CardHeader className="flex flex-row items-center justify-between"><CardTitle className="text-base font-black">Bastidores (hoops)</CardTitle><Badge variant="outline" className="rounded-full">{store.hoops.length} itens</Badge></CardHeader>
             <CardContent className="space-y-3">
               {store.hoops.map(h => (
-                <div key={h.id} className="flex items-center gap-3 rounded-2xl border p-3">
+                <div key={h.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap">
                   <div className="flex-1"><p className="font-bold">{h.nome}</p><p className="text-xs text-muted-foreground">{h.tamanho} • {h.uso}</p></div>
                   <div className="flex items-center gap-2">
                     <Switch checked={h.ativo} onCheckedChange={() => adminHelpers.toggleHoop(h.id)} />
@@ -178,7 +178,7 @@ function Admin() {
             <CardHeader className="flex flex-row items-center justify-between"><CardTitle className="text-base font-black">Tecidos & estabilização</CardTitle><Badge variant="outline" className="rounded-full">{store.fabrics.length} itens</Badge></CardHeader>
             <CardContent className="space-y-3">
               {store.fabrics.map(f => (
-                <div key={f.id} className="flex items-center gap-3 rounded-2xl border p-3">
+                <div key={f.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap">
                   <span className="h-8 w-8 rounded-lg border" style={{ background: f.cor }} />
                   <div className="flex-1"><p className="font-bold">{f.nome}</p><p className="text-xs text-muted-foreground">{f.peso} • {f.estabilizacao} • Agulha {f.agulha}</p></div>
                   <div className="flex items-center gap-2">
@@ -206,7 +206,7 @@ function Admin() {
             <CardHeader><CardTitle className="text-base font-black">Presets de digitalização</CardTitle><p className="text-sm text-muted-foreground">Editados aqui e usados na etapa 5 do assistente.</p></CardHeader>
             <CardContent className="space-y-3">
               {store.presets.map(p => (
-                <div key={p.id} className="rounded-2xl border p-4 flex gap-4">
+                <div key={p.id} className="flex min-w-0 flex-wrap gap-4 rounded-2xl border p-4 sm:flex-nowrap">
                   <div className="flex-1"><p className="font-black">{p.nome}</p><p className="text-xs text-muted-foreground">{p.descricao}</p>
                     <div className="mt-2 flex flex-wrap gap-2 text-xs"><Badge variant="secondary">{p.densidade}</Badge><Badge variant="secondary">{p.underlay}</Badge><Badge variant="secondary">Pull {p.pull}</Badge><Badge variant="secondary">{p.velocidade}</Badge></div>
                   </div>

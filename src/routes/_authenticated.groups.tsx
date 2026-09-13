@@ -57,7 +57,7 @@ function GroupsComponent() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Grupos</h1>
           <p className="text-muted-foreground">Gerencie as listas de destinatários autorizadas</p>
@@ -92,7 +92,7 @@ function GroupsComponent() {
 
       <Card className="border-primary/10 shadow-lg shadow-primary/5">
         <CardContent className="p-0">
-          <Table>
+          <Table className="min-w-[640px]">
             <TableHeader>
               <TableRow>
                 <TableHead>Nome</TableHead>

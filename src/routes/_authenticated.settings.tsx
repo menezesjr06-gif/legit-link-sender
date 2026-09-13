@@ -116,7 +116,7 @@ function SettingsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Configurações da API</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Configurações da API</h1>
         <p className="text-muted-foreground">
           Gerencie suas credenciais da Meta e WhatsApp Business Platform.
         </p>
