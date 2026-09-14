@@ -81,9 +81,9 @@ function Biblioteca() {
                 <img src={p.arte} alt={p.titulo} className="h-full w-full object-cover group-hover:scale-[1.03] transition duration-500" />
                 <span className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-black text-white ${statusMap[p.status]?.color ?? "bg-zinc-500"}`}><span className="h-2 w-2 rounded-full bg-white" /> {statusMap[p.status]?.label ?? p.status}</span>
                 <span className="absolute right-3 top-3 rounded-full bg-black/75 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur flex items-center gap-1"><Lock className="h-3 w-3" /> Privado</span>
-                <div className="absolute inset-x-3 bottom-3 flex items-center justify-between">
-                  <span className="rounded-full bg-white px-2.5 py-1 text-xs font-bold text-black">{p.bastidor} • {p.tecido}</span>
-                  <span className="rounded-full bg-white/90 px-2 py-1 text-xs font-bold">{p.pontos.toLocaleString("pt-BR")} pts</span>
+                <div className="absolute inset-x-3 bottom-3 flex flex-wrap items-end gap-1.5">
+                  <span className="max-w-full truncate rounded-full bg-white px-2.5 py-1 text-xs font-bold text-black">{p.bastidor} • {p.tecido}</span>
+                  <span className="ml-auto shrink-0 rounded-full bg-white/90 px-2 py-1 text-xs font-bold text-black">{p.pontos.toLocaleString("pt-BR")} pts</span>
                 </div>
               </div>
               <CardContent className="p-4">

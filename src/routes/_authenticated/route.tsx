@@ -34,12 +34,12 @@ function AuthenticatedLayout() {
           <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Abrir navegação" className="shrink-0 text-white hover:bg-white/10 hover:text-white">
             <Menu className="h-6 w-6" />
           </Button>
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 overflow-hidden rounded-lg border border-white/10 bg-black"><img src={logoAsset.url} alt="MJ" className="h-full w-full object-cover" /></div>
-            <span className="text-sm font-black tracking-tight">MJ STÚDIO</span>
-            <span className="rounded-full bg-primary px-1.5 py-0.5 text-[8px] font-black text-primary-foreground">PRO</span>
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-black"><img src={logoAsset.url} alt="MJ" className="h-full w-full object-cover" /></div>
+            <span className="truncate text-sm font-black tracking-tight">MJ STÚDIO</span>
+            <span className="shrink-0 rounded-full bg-primary px-1.5 py-0.5 text-[8px] font-black text-primary-foreground">PRO</span>
           </div>
-          <span className="ml-auto text-[10px] font-bold tracking-widest text-primary">PRIVADO</span>
+          <span className="shrink-0 text-[9px] font-bold tracking-wider text-primary sm:text-[10px] sm:tracking-widest">PRIVADO</span>
         </div>
 
         <TopBar />

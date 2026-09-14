@@ -157,21 +157,22 @@ iframe[src*="lovable"] {
   pointer-events: none !important;
 }
 
-/* remove overlays fixos suspeitos (mais específico) */
-body > div[style*="position: fixed"][style*="z-index"] {
-  display: none !important;
-}
+/* Portais legítimos de navegação, diálogos, alertas e notificações permanecem visíveis. */
 
 @layer base {
   html,
   body {
+    width: 100%;
     max-width: 100%;
     min-width: 0;
     overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
-    min-height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   main,
@@ -223,6 +224,18 @@ body > div[style*="position: fixed"][style*="z-index"] {
   [role="radio"],
   [role="switch"] {
     outline-offset: 6px;
+  }
+}
+
+@media (max-width: 639px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  [role="dialog"] {
+    max-width: calc(100vw - 1rem);
   }
 }
 

@@ -101,17 +101,17 @@ function AuthComponent() {
             <form onSubmit={mode === "login" ? handleLogin : handleSignUp} className="mt-6 space-y-4">
               {mode === "signup" && (
                 <div className="space-y-2">
-                  <Label>Nome do atelier / responsável</Label>
-                  <Input placeholder="Ex: Atelier MJ — Maria" value={nome} onChange={e => setNome(e.target.value)} required={mode === "signup"} />
+                  <Label htmlFor="signup-name">Nome do atelier / responsável</Label>
+                  <Input id="signup-name" autoComplete="name" placeholder="Ex: Atelier MJ — Maria" value={nome} onChange={e => setNome(e.target.value)} required={mode === "signup"} />
                 </div>
               )}
               <div className="space-y-2">
-                <Label>E-mail</Label>
-                <Input type="email" placeholder="seu@email.com" value={email} onChange={e => setEmail(e.target.value)} required />
+                <Label htmlFor="auth-email">E-mail</Label>
+                <Input id="auth-email" type="email" autoComplete="email" placeholder="seu@email.com" value={email} onChange={e => setEmail(e.target.value)} required />
               </div>
               <div className="space-y-2">
-                <Label>Senha</Label>
-                <Input type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
+                <Label htmlFor="auth-password">Senha</Label>
+                <Input id="auth-password" type="password" autoComplete={mode === "login" ? "current-password" : "new-password"} placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
                 <p className="text-xs text-muted-foreground flex items-center gap-1"><ShieldCheck className="h-3.5 w-3.5" /> Criptografada + isolada por RLS.</p>
               </div>
 

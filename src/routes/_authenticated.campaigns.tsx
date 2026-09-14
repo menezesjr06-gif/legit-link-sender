@@ -140,13 +140,14 @@ function CampaignsComponent() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 py-4">
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Título da Campanha</label>
-                <Input placeholder="Ex: Promoção de Verão" value={title} onChange={e => setTitle(e.target.value)} required />
+                <label htmlFor="campaign-title" className="text-sm font-medium">Título da Campanha</label>
+                <Input id="campaign-title" placeholder="Ex: Promoção de Verão" value={title} onChange={e => setTitle(e.target.value)} required />
               </div>
               
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Mensagem</label>
+                <label htmlFor="campaign-message" className="text-sm font-medium">Mensagem</label>
                 <Textarea 
+                  id="campaign-message"
                   placeholder="Digite sua mensagem aqui..." 
                   className="min-h-[100px]" 
                   value={message} 
@@ -156,24 +157,24 @@ function CampaignsComponent() {
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Link (opcional)</label>
-                <Input placeholder="https://..." value={link} onChange={e => setLink(e.target.value)} />
+                <label htmlFor="campaign-link" className="text-sm font-medium">Link (opcional)</label>
+                <Input id="campaign-link" inputMode="url" placeholder="https://..." value={link} onChange={e => setLink(e.target.value)} />
               </div>
 
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Grupos Destinatários</label>
                 <div className="grid max-h-[150px] gap-2 overflow-y-auto rounded-md border p-3 sm:grid-cols-2">
                   {groups?.map(group => (
-                    <div key={group.id} className="flex items-center space-x-2">
+                    <div key={group.id} className="flex min-h-11 min-w-0 items-center space-x-2 rounded-md px-1">
                       <Checkbox 
-                        id={group.id} 
+                        id={`campaign-group-${group.id}`} 
                         checked={selectedGroups.includes(group.id)}
                         onCheckedChange={(checked) => {
                           if (checked) setSelectedGroups([...selectedGroups, group.id]);
                           else setSelectedGroups(selectedGroups.filter(id => id !== group.id));
                         }}
                       />
-                      <label htmlFor={group.id} className="text-sm cursor-pointer truncate">{group.name}</label>
+                      <label htmlFor={`campaign-group-${group.id}`} className="min-w-0 flex-1 cursor-pointer truncate text-sm">{group.name}</label>
                     </div>
                   ))}
                 </div>
@@ -181,8 +182,9 @@ function CampaignsComponent() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="grid gap-2">
-                  <label className="text-sm font-medium">Agendar para</label>
+                  <label htmlFor="campaign-schedule" className="text-sm font-medium">Agendar para</label>
                   <Input 
+                    id="campaign-schedule"
                     type="datetime-local" 
                     value={scheduleAt} 
                     onChange={e => setScheduleAt(e.target.value)} 
@@ -223,7 +225,34 @@ function CampaignsComponent() {
         </Dialog>
       </div>
 
-      <Card className="border-primary/10 shadow-lg shadow-primary/5">
+      <div className="grid gap-3 lg:hidden">
+        {campaigns?.length === 0 ? (
+          <Card><CardContent className="p-6 text-center text-sm text-muted-foreground">Nenhuma campanha encontrada</CardContent></Card>
+        ) : campaigns?.map((campaign) => (
+          <Card key={campaign.id} className="overflow-hidden border-primary/10 shadow-sm">
+            <CardContent className="space-y-4 p-4">
+              <div className="flex min-w-0 flex-wrap items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <h2 className="break-words font-semibold">{campaign.title}</h2>
+                  <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{campaign.message}</p>
+                </div>
+                {getStatusBadge(campaign.status)}
+              </div>
+              <dl className="grid gap-3 text-sm sm:grid-cols-2">
+                <div><dt className="text-xs font-medium text-muted-foreground">Agendamento</dt><dd>{campaign.schedule_at ? format(new Date(campaign.schedule_at), "dd/MM/yy HH:mm") : "Não agendada"}</dd></div>
+                <div><dt className="text-xs font-medium text-muted-foreground">Recorrência</dt><dd>{campaign.is_recurring ? campaign.recurrence_interval === '1 day' ? 'Diária' : campaign.recurrence_interval === '1 hour' ? 'A cada hora' : campaign.recurrence_interval === '7 days' ? 'Semanal' : 'Mensal' : 'Não'}</dd></div>
+              </dl>
+              <div className="flex flex-wrap justify-end gap-2 border-t pt-3">
+                {campaign.status === 'paused' && <Button variant="outline" size="icon" aria-label={`Retomar campanha ${campaign.title}`} disabled={statusMutation.isPending} onClick={() => statusMutation.mutate({ id: campaign.id, status: 'sending' })}><Play className="h-4 w-4" /></Button>}
+                {(campaign.status === 'sending' || campaign.status === 'scheduled') && <Button variant="outline" size="icon" aria-label={`Pausar campanha ${campaign.title}`} disabled={statusMutation.isPending} onClick={() => statusMutation.mutate({ id: campaign.id, status: 'paused' })}><Pause className="h-4 w-4" /></Button>}
+                {campaign.status !== 'cancelled' && campaign.status !== 'completed' && <Button variant="outline" size="icon" className="text-destructive" aria-label={`Cancelar campanha ${campaign.title}`} disabled={statusMutation.isPending} onClick={() => statusMutation.mutate({ id: campaign.id, status: 'cancelled' })}><XCircle className="h-4 w-4" /></Button>}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <Card className="hidden border-primary/10 shadow-lg shadow-primary/5 lg:block">
         <CardHeader>
           <CardTitle>Fila de Envios</CardTitle>
           <CardDescription>Controle as campanhas agendadas e em execução.</CardDescription>

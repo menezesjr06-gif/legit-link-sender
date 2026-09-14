@@ -193,8 +193,11 @@ function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <FormLabel>Número de WhatsApp (com DDI)</FormLabel>
+              <FormLabel htmlFor="test-whatsapp-number">Número de WhatsApp (com DDI)</FormLabel>
               <Input
+                id="test-whatsapp-number"
+                inputMode="tel"
+                autoComplete="tel"
                 placeholder="Ex: 5511999999999"
                 value={testNumber}
                 onChange={(e) => setTestNumber(e.target.value)}

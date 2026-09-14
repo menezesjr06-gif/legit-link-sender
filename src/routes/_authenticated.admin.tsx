@@ -126,9 +126,9 @@ function Admin() {
                 <div key={m.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap">
                   <div className="flex-1"><p className="font-bold">{m.nome} <span className="text-xs text-muted-foreground">• {m.marca}</span></p><p className="text-xs text-muted-foreground">{m.agulhas} agulhas • {m.velocidade} • {m.formato}</p></div>
                   <div className="flex items-center gap-2">
-                    <Switch checked={m.ativo} onCheckedChange={() => adminHelpers.toggleMachine(m.id)} />
+                    <Switch aria-label={`${m.ativo ? "Ocultar" : "Ativar"} máquina ${m.nome}`} checked={m.ativo} onCheckedChange={() => adminHelpers.toggleMachine(m.id)} />
                     <span className={`text-xs font-bold ${m.ativo ? "text-emerald-600" : "text-muted-foreground"}`}>{m.ativo ? "Ativa" : "Oculta"}</span>
-                    <Button variant="ghost" size="icon" className="rounded-full text-destructive" onClick={() => adminHelpers.deleteMachine(m.id)}><Trash2 className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" aria-label={`Excluir máquina ${m.nome}`} className="rounded-full text-destructive" onClick={() => adminHelpers.deleteMachine(m.id)}><Trash2 className="h-4 w-4" /></Button>
                   </div>
                 </div>
               ))}
@@ -154,9 +154,9 @@ function Admin() {
                 <div key={h.id} className="flex min-w-0 flex-wrap items-center gap-3 rounded-2xl border p-3 sm:flex-nowrap">
                   <div className="flex-1"><p className="font-bold">{h.nome}</p><p className="text-xs text-muted-foreground">{h.tamanho} • {h.uso}</p></div>
                   <div className="flex items-center gap-2">
-                    <Switch checked={h.ativo} onCheckedChange={() => adminHelpers.toggleHoop(h.id)} />
+                    <Switch aria-label={`${h.ativo ? "Ocultar" : "Ativar"} bastidor ${h.nome}`} checked={h.ativo} onCheckedChange={() => adminHelpers.toggleHoop(h.id)} />
                     <span className={`text-xs font-bold ${h.ativo ? "text-emerald-600" : "text-muted-foreground"}`}>{h.ativo ? "Ativo" : "Oculto"}</span>
-                    <Button variant="ghost" size="icon" className="rounded-full text-destructive" onClick={() => adminHelpers.deleteHoop(h.id)}><Trash2 className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" aria-label={`Excluir bastidor ${h.nome}`} className="rounded-full text-destructive" onClick={() => adminHelpers.deleteHoop(h.id)}><Trash2 className="h-4 w-4" /></Button>
                   </div>
                 </div>
               ))}
@@ -182,9 +182,9 @@ function Admin() {
                   <span className="h-8 w-8 rounded-lg border" style={{ background: f.cor }} />
                   <div className="flex-1"><p className="font-bold">{f.nome}</p><p className="text-xs text-muted-foreground">{f.peso} • {f.estabilizacao} • Agulha {f.agulha}</p></div>
                   <div className="flex items-center gap-2">
-                    <Switch checked={f.ativo} onCheckedChange={() => adminHelpers.toggleFabric(f.id)} />
+                    <Switch aria-label={`${f.ativo ? "Ocultar" : "Ativar"} tecido ${f.nome}`} checked={f.ativo} onCheckedChange={() => adminHelpers.toggleFabric(f.id)} />
                     <span className={`text-xs font-bold ${f.ativo ? "text-emerald-600" : "text-muted-foreground"}`}>{f.ativo ? "Ativo" : "Oculto"}</span>
-                    <Button variant="ghost" size="icon" className="rounded-full text-destructive" onClick={() => adminHelpers.deleteFabric(f.id)}><Trash2 className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" aria-label={`Excluir tecido ${f.nome}`} className="rounded-full text-destructive" onClick={() => adminHelpers.deleteFabric(f.id)}><Trash2 className="h-4 w-4" /></Button>
                   </div>
                 </div>
               ))}
@@ -210,7 +210,7 @@ function Admin() {
                   <div className="flex-1"><p className="font-black">{p.nome}</p><p className="text-xs text-muted-foreground">{p.descricao}</p>
                     <div className="mt-2 flex flex-wrap gap-2 text-xs"><Badge variant="secondary">{p.densidade}</Badge><Badge variant="secondary">{p.underlay}</Badge><Badge variant="secondary">Pull {p.pull}</Badge><Badge variant="secondary">{p.velocidade}</Badge></div>
                   </div>
-                  <Button variant="ghost" size="icon" className="rounded-full text-destructive" onClick={() => adminHelpers.deletePreset(p.id)}><Trash2 className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" aria-label={`Excluir preset ${p.nome}`} className="rounded-full text-destructive" onClick={() => adminHelpers.deletePreset(p.id)}><Trash2 className="h-4 w-4" /></Button>
                 </div>
               ))}
               <div className="rounded-2xl border border-dashed p-4 grid gap-3">

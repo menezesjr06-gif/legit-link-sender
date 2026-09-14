@@ -74,13 +74,16 @@ function GroupsComponent() {
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Input placeholder="Nome do Grupo" value={name} onChange={e => setName(e.target.value)} required />
+                <label htmlFor="group-name" className="text-sm font-medium">Nome do grupo</label>
+                <Input id="group-name" placeholder="Ex: Clientes VIP" value={name} onChange={e => setName(e.target.value)} required />
               </div>
               <div className="space-y-2">
-                <Input placeholder="ID do WhatsApp (ex: 12036302...) " value={whatsappId} onChange={e => setWhatsappId(e.target.value)} required />
+                <label htmlFor="group-whatsapp-id" className="text-sm font-medium">ID do WhatsApp</label>
+                <Input id="group-whatsapp-id" placeholder="Ex: 12036302..." value={whatsappId} onChange={e => setWhatsappId(e.target.value)} required />
               </div>
               <div className="space-y-2">
-                <Input placeholder="Categoria (ex: Promoção, VIP)" value={category} onChange={e => setCategory(e.target.value)} />
+                <label htmlFor="group-category" className="text-sm font-medium">Categoria</label>
+                <Input id="group-category" placeholder="Ex: Promoção, VIP" value={category} onChange={e => setCategory(e.target.value)} />
               </div>
               <Button type="submit" className="w-full" disabled={mutation.isPending}>
                 {mutation.isPending ? "Salvando..." : "Salvar"}
@@ -90,7 +93,26 @@ function GroupsComponent() {
         </Dialog>
       </div>
 
-      <Card className="border-primary/10 shadow-lg shadow-primary/5">
+      <div className="grid gap-3 lg:hidden">
+        {groups?.length === 0 ? (
+          <Card><CardContent className="p-6 text-center text-sm text-muted-foreground">Nenhum grupo cadastrado</CardContent></Card>
+        ) : groups?.map((group) => (
+          <Card key={group.id} className="border-primary/10 shadow-sm">
+            <CardContent className="space-y-3 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <h2 className="min-w-0 flex-1 break-words font-semibold">{group.name}</h2>
+                <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Ativo</span>
+              </div>
+              <dl className="grid gap-3 text-sm sm:grid-cols-2">
+                <div className="min-w-0"><dt className="text-xs font-medium text-muted-foreground">WhatsApp ID</dt><dd className="break-all">{group.whatsapp_group_id}</dd></div>
+                <div><dt className="text-xs font-medium text-muted-foreground">Categoria</dt><dd>{group.category || "Geral"}</dd></div>
+              </dl>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <Card className="hidden border-primary/10 shadow-lg shadow-primary/5 lg:block">
         <CardContent className="p-0">
           <Table className="min-w-[640px]">
             <TableHeader>

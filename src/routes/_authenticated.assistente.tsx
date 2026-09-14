@@ -148,7 +148,7 @@ function Assistente() {
           </div>
           <span className="w-fit shrink-0 rounded-full bg-foreground px-3 py-1.5 text-xs font-black text-background">{Math.round(step / 7 * 100)}% concluído</span>
         </div>
-        <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-primary transition-all duration-500" style={{ width: `${step / 7 * 100}%` }} /></div>
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted" role="progressbar" aria-label="Progresso do assistente" aria-valuemin={1} aria-valuemax={7} aria-valuenow={step}><div className="h-full bg-primary transition-all duration-500" style={{ width: `${step / 7 * 100}%` }} /></div>
         <div className="mt-4 grid grid-cols-4 gap-1.5 sm:grid-cols-7">
           {steps.map(s => {
             const done = step > s.n;
@@ -280,7 +280,7 @@ function Assistente() {
                       <div key={`${c}-${i}`} className="flex items-center gap-2 rounded-full border px-2 py-1 bg-card">
                         <span className="h-6 w-6 rounded-full border" style={{ background: c }} />
                         <span className="text-xs font-bold">{c}</span>
-                        <button onClick={() => setForm({ ...form, cores: form.cores.filter((_, idx) => idx !== i) })} className="rounded-full p-1 hover:bg-muted"><X className="h-3 w-3" /></button>
+                        <button type="button" aria-label={`Remover a cor ${c}`} onClick={() => setForm({ ...form, cores: form.cores.filter((_, idx) => idx !== i) })} className="rounded-full p-1 hover:bg-muted"><X className="h-3 w-3" /></button>
                       </div>
                     ))}
                   </div>
@@ -380,7 +380,7 @@ function Assistente() {
 }
 
 function Header({ k, title, desc }: { k: string, title: string, desc: string }) {
-  return <div className="flex gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-primary-foreground">{k}</span><div><h2 className="text-lg font-black tracking-tight">{title}</h2><p className="text-sm text-muted-foreground">{desc}</p></div></div>
+  return <div className="flex min-w-0 gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-primary-foreground">{k}</span><div className="min-w-0"><h2 className="text-lg font-black tracking-tight">{title}</h2><p className="text-sm text-muted-foreground">{desc}</p></div></div>
 }
 function Row({ label, value }: { label: string, value: string }) {
   return <div className="flex min-w-0 justify-between gap-3 border-b pb-2 last:border-0"><span className="shrink-0 text-xs font-bold uppercase tracking-wide text-muted-foreground">{label}</span><span className="max-w-[60%] break-words text-right text-xs font-semibold">{value}</span></div>

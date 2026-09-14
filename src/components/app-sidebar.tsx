@@ -55,7 +55,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
       <div className="px-3 pb-3">
         <div className="relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-white/40" />
-          <Input placeholder="Buscar projeto, arte..." className="h-9 bg-white/[0.06] border-white/10 pl-9 text-sm placeholder:text-white/40 focus-visible:ring-primary" />
+          <Input aria-label="Buscar projeto ou arte" placeholder="Buscar projeto, arte..." className="h-9 bg-white/[0.06] border-white/10 pl-9 text-sm placeholder:text-white/40 focus-visible:ring-primary" />
         </div>
       </div>
 
@@ -106,7 +106,7 @@ export function AppSidebar({ onNavigate }: { onNavigate?: () => void }) {
 
       <div className="border-t border-white/10 p-3">
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-white/60 hover:bg-white/10 hover:text-white"><Bell className="h-4 w-4" /></Button>
+          <Button variant="ghost" size="icon" aria-label="Abrir notificações" className="h-8 w-8 text-white/60 hover:bg-white/10 hover:text-white"><Bell className="h-4 w-4" /></Button>
           <ThemeToggle />
           <div className="flex-1" />
           <Button variant="ghost" onClick={handleLogout} className="h-8 gap-2 text-white/70 hover:bg-white/10 hover:text-white text-xs font-semibold"><LogOut className="h-4 w-4" /> Sair</Button>
