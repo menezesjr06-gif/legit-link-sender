@@ -41,6 +41,8 @@ function Assistente() {
     titulo: "Leão MJ — nova arte",
     categoria: "Logo",
     observacao: "",
+    quantidade: "1",
+    valorUnitario: "",
     largura: "110",
     altura: "85",
     bastidor: "h2",
@@ -54,6 +56,13 @@ function Assistente() {
   const selectedFabric = catalog.fabrics.find(f => f.id === form.tecido) ?? catalog.fabrics[0];
   const selectedMachine = catalog.machines.find(m => m.id === form.maquina) ?? catalog.machines.find(m => m.ativo) ?? catalog.machines[0];
   const selectedPreset = catalog.presets.find(p => p.id === form.preset) ?? catalog.presets[0];
+  const quantidade = Number(form.quantidade) || 0;
+  const valorUnitario = Number(form.valorUnitario.replace(",", ".")) || 0;
+  const subtotal = quantidade * valorUnitario;
+  const percentualDesconto = quantidade > 10 ? 0.1 : 0;
+  const valorDesconto = subtotal * percentualDesconto;
+  const total = subtotal - valorDesconto;
+  const formatCurrency = (value: number) => value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   // garante seleções ativas se admin desativar
   useEffect(() => {
@@ -83,6 +92,8 @@ function Assistente() {
 
   const validateNext = (): boolean => {
     if (step === 1 && !form.titulo.trim()) { toast.error("Informe o nome do projeto"); return false; }
+    if (step === 1 && (!quantidade || quantidade < 1)) { toast.error("Informe uma quantidade válida"); return false; }
+    if (step === 1 && (!valorUnitario || valorUnitario <= 0)) { toast.error("Informe o valor unitário em reais"); return false; }
     if (step === 2) {
       const w = Number(form.largura), h = Number(form.altura);
       if (!w || !h || w < 10 || h < 10 || w > 500 || h > 500) { toast.error("Largura/altura entre 10 e 500mm"); return false; }
@@ -175,6 +186,10 @@ function Assistente() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2"><Label>Nome do projeto *</Label><Input value={form.titulo} onChange={e => setForm({ ...form, titulo: e.target.value })} placeholder="Ex: Leão MJ dourado" /></div>
                   <div className="space-y-2"><Label>Categoria</Label><select value={form.categoria} onChange={e => setForm({ ...form, categoria: e.target.value })} className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"><option>Logo</option><option>Monograma</option><option>Escudo</option><option>Floral</option><option>Patch</option></select></div>
+                </div>
+                <div className="grid gap-4 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-2">
+                  <div className="space-y-2"><Label>Quantidade *</Label><Input inputMode="numeric" value={form.quantidade} onChange={e => setForm({ ...form, quantidade: e.target.value.replace(/\D/g, "") })} placeholder="Ex: 12" /><p className="text-xs text-muted-foreground">Acima de 10 unidades recebe 10% de desconto.</p></div>
+                  <div className="space-y-2"><Label>Valor unitário (R$) *</Label><Input inputMode="decimal" value={form.valorUnitario} onChange={e => setForm({ ...form, valorUnitario: e.target.value.replace(/\./g, ",").replace(/[^\d,]/g, "").replace(/,(?=.*?,)/g, "") })} placeholder="Ex: 25,00" /><p className="text-xs text-muted-foreground">Informe o valor correspondente à lista enviada.</p></div>
                 </div>
                 <div className="space-y-2"><Label>Observações (opcional)</Label><Textarea placeholder="Ex: dourado metálico, contorno preto 1.5mm, para boné" value={form.observacao} onChange={e => setForm({ ...form, observacao: e.target.value })} /></div>
               </div>
@@ -300,6 +315,14 @@ function Assistente() {
                     <div className="rounded-2xl border p-4 text-center"><p className="text-xs font-bold text-muted-foreground">PONTOS</p><p className="text-xl font-black">{(Math.round(Number(form.largura) * Number(form.altura) * 8) + 8000).toLocaleString("pt-BR")}</p><p className="text-xs text-muted-foreground">{form.cores.length} paradas</p></div>
                     <div className="rounded-2xl border p-4 text-center"><p className="text-xs font-bold text-muted-foreground">FORMATOS</p><p className="text-xl font-black">DST • PES</p><p className="text-xs text-muted-foreground">{selectedMachine?.formato ?? ""}</p></div>
                   </div>
+                  <div className="rounded-2xl border bg-muted/20 p-4">
+                    <div className="flex items-center justify-between gap-3"><div><p className="text-xs font-black tracking-widest text-muted-foreground">RESUMO DO VALOR</p><p className="text-sm font-semibold">{quantidade} unidades × {formatCurrency(valorUnitario)}</p></div>{percentualDesconto > 0 && <span className="rounded-full bg-emerald-500 px-3 py-1 text-xs font-black text-white">10% OFF</span>}</div>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                      <Info label="Subtotal" value={formatCurrency(subtotal)} />
+                      <Info label="Desconto" value={percentualDesconto > 0 ? `- ${formatCurrency(valorDesconto)}` : "Não aplicado"} />
+                      <div className="rounded-xl bg-foreground p-3 text-background"><p className="text-[11px] font-black tracking-widest opacity-60">TOTAL</p><p className="text-xl font-black">{formatCurrency(total)}</p></div>
+                    </div>
+                  </div>
                   <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex gap-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5" />
                     <div className="text-sm"><b>Salvo como privado</b><p className="text-muted-foreground">Vinculado ao seu user_id. Outros clientes não veem — RLS: created_by = auth.uid().</p></div>
@@ -327,6 +350,10 @@ function Assistente() {
               <Row label="Tecido" value={`${selectedFabric?.nome ?? "-"} • ${selectedFabric?.estabilizacao ?? ""}`} />
               <Row label="Máquina" value={selectedMachine?.nome ?? "-"} />
               <Row label="Preset" value={selectedPreset?.nome ?? "-"} />
+              <Row label="Quantidade" value={`${quantidade} unidade${quantidade === 1 ? "" : "s"}`} />
+              <Row label="Valor unitário" value={formatCurrency(valorUnitario)} />
+              <Row label="Desconto" value={percentualDesconto > 0 ? `10% (- ${formatCurrency(valorDesconto)})` : "Não aplicado"} />
+              <Row label="Total" value={formatCurrency(total)} />
             </div>
             <div className="mt-4 rounded-2xl bg-foreground p-4 text-background">
               <p className="text-xs font-black tracking-widest opacity-60">PRIVACIDADE</p>
