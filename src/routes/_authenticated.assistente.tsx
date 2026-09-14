@@ -39,7 +39,7 @@ function Assistente() {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
     titulo: "Leão MJ — nova arte",
-    categoria: "Logo",
+    categoria: "",
     observacao: "",
     quantidade: "1",
     valorUnitario: "",
@@ -113,6 +113,7 @@ function Assistente() {
         titulo: form.titulo.trim(),
         arte: artePreview,
         cliente: (session?.user.user_metadata?.full_name as string) || session?.user.email?.split("@")[0] || "Você",
+        categoria: form.categoria.trim() || undefined,
         status: "pronto",
         bastidor: selectedHoop.mm,
         tecido: selectedFabric.nome,
@@ -185,7 +186,7 @@ function Assistente() {
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2"><Label>Nome do projeto *</Label><Input value={form.titulo} onChange={e => setForm({ ...form, titulo: e.target.value })} placeholder="Ex: Leão MJ dourado" /></div>
-                  <div className="space-y-2"><Label>Categoria</Label><select value={form.categoria} onChange={e => setForm({ ...form, categoria: e.target.value })} className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"><option>Logo</option><option>Monograma</option><option>Escudo</option><option>Floral</option><option>Patch</option></select></div>
+                  <div className="space-y-2"><Label>Categoria</Label><Input value={form.categoria} onChange={e => setForm({ ...form, categoria: e.target.value })} placeholder="Digite uma categoria (opcional)" /></div>
                 </div>
                 <div className="grid gap-4 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-2">
                   <div className="space-y-2"><Label>Quantidade *</Label><Input inputMode="numeric" value={form.quantidade} onChange={e => setForm({ ...form, quantidade: e.target.value.replace(/\D/g, "") })} placeholder="Ex: 12" /><p className="text-xs text-muted-foreground">Acima de 10 unidades recebe 10% de desconto.</p></div>
@@ -345,6 +346,7 @@ function Assistente() {
             <p className="text-xs font-black tracking-widest text-muted-foreground">RESUMO AO VIVO</p>
             <div className="mt-3 space-y-3 text-sm">
               <Row label="Projeto" value={form.titulo || "(sem nome)"} />
+              {form.categoria.trim() && <Row label="Categoria" value={form.categoria.trim()} />}
               <Row label="Tamanho" value={`${form.largura}×${form.altura}mm`} />
               <Row label="Bastidor" value={selectedHoop?.nome ?? "-"} />
               <Row label="Tecido" value={`${selectedFabric?.nome ?? "-"} • ${selectedFabric?.estabilizacao ?? ""}`} />

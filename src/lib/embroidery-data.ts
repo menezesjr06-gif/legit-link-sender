@@ -38,6 +38,7 @@ export type Projeto = {
   titulo: string
   arte: string
   cliente: string
+  categoria?: string
   status: "rascunho" | "pronto" | "em_bordado" | "entregue"
   bastidor: string
   tecido: string
