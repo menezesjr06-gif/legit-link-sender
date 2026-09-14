@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Wand2, Library, Settings2, ShieldCheck, Users, LogOut, Sparkles, ChevronRight, Search, Bell } from "lucide-react";
+import { LayoutDashboard, Wand2, Library, Settings2, ShieldCheck, LogOut, Sparkles, ChevronRight, Search, Bell, MessagesSquare, ContactRound } from "lucide-react";
 import logoAsset from "@/assets/logo-mj.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -13,6 +13,8 @@ const mainNav = [
 ]
 
 const adminNav = [
+  { label: "Campanhas", icon: MessagesSquare, to: "/campaigns", desc: "Envios" },
+  { label: "Grupos", icon: ContactRound, to: "/groups", desc: "Destinatários" },
   { label: "Painel Admin", icon: ShieldCheck, to: "/admin", desc: "Sem código" },
   { label: "Configurações", icon: Settings2, to: "/settings", desc: "Conta" },
 ]
@@ -121,6 +123,8 @@ export function TopBar() {
     "/dashboard": "Dashboard",
     "/assistente": "Assistente de Matriz",
     "/biblioteca": "Biblioteca",
+    "/campaigns": "Campanhas",
+    "/groups": "Grupos",
     "/admin": "Painel Administrativo",
     "/settings": "Configurações",
   }

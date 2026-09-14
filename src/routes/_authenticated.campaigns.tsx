@@ -129,7 +129,7 @@ function CampaignsComponent() {
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="mr-2 h-4 w-4" /> Nova Campanha
             </Button>
           </DialogTrigger>
@@ -274,6 +274,7 @@ function CampaignsComponent() {
                             variant="outline" 
                             size="icon" 
                             className="h-8 w-8 text-green-600"
+                            aria-label={`Retomar campanha ${campaign.title}`}
                             onClick={() => statusMutation.mutate({ id: campaign.id, status: 'sending' })}
                           >
                             <Play className="h-4 w-4" />
@@ -284,6 +285,7 @@ function CampaignsComponent() {
                             variant="outline" 
                             size="icon" 
                             className="h-8 w-8 text-yellow-600"
+                            aria-label={`Pausar campanha ${campaign.title}`}
                             onClick={() => statusMutation.mutate({ id: campaign.id, status: 'paused' })}
                           >
                             <Pause className="h-4 w-4" />
@@ -294,6 +296,7 @@ function CampaignsComponent() {
                             variant="outline" 
                             size="icon" 
                             className="h-8 w-8 text-destructive"
+                            aria-label={`Cancelar campanha ${campaign.title}`}
                             onClick={() => statusMutation.mutate({ id: campaign.id, status: 'cancelled' })}
                           >
                             <XCircle className="h-4 w-4" />

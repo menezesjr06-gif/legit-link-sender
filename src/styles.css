@@ -207,10 +207,50 @@ body > div[style*="position: fixed"][style*="z-index"] {
 
 @media (pointer: coarse) {
   button,
-  a[href],
-  [role="button"],
-  input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
-  select {
+  [role="button"] {
+    min-width: 44px;
     min-height: 44px;
+  }
+
+  a[href],
+  input:not([type="checkbox"]):not([type="radio"]):not([type="color"]),
+  select,
+  textarea {
+    min-height: 44px;
+  }
+
+  [role="checkbox"],
+  [role="radio"],
+  [role="switch"] {
+    outline-offset: 6px;
+  }
+}
+
+@media (max-width: 374px) {
+  h1 {
+    line-height: 1.08;
+  }
+
+  [data-slot="card-content"],
+  [data-slot="card-header"],
+  [data-slot="card-footer"] {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .safe-area-pb {
+    padding-bottom: max(0.125rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

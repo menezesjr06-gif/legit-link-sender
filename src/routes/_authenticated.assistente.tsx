@@ -138,15 +138,15 @@ function Assistente() {
   return (
     <div className="space-y-6">
       <div className="rounded-[24px] border bg-card p-3 shadow-sm sm:p-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-2">
             <div className="hidden h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground lg:flex"><Wand2 className="h-5 w-5" /></div>
             <div>
               <p className="text-xs font-black tracking-[0.14em] text-primary">ASSISTENTE 7 ETAPAS</p>
               <p className="text-sm font-bold leading-none">Etapa {step} de 7 — {steps[step - 1].title}</p>
             </div>
           </div>
-          <span className="rounded-full bg-foreground px-3 py-1.5 text-xs font-black text-background">{Math.round(step / 7 * 100)}% concluído</span>
+          <span className="w-fit shrink-0 rounded-full bg-foreground px-3 py-1.5 text-xs font-black text-background">{Math.round(step / 7 * 100)}% concluído</span>
         </div>
         <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-primary transition-all duration-500" style={{ width: `${step / 7 * 100}%` }} /></div>
         <div className="mt-4 grid grid-cols-4 gap-1.5 sm:grid-cols-7">
